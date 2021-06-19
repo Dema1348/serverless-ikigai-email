@@ -1,0 +1,15 @@
+{
+  "name": "lambda-ikigai-email",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "netlify dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.5",
+    "dotenv": "^10.0.0"
+  }
+}
