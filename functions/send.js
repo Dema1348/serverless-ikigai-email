@@ -23,10 +23,9 @@ exports.handler = async function (event, context, callback) {
     console.log(response);
     callback(null, {
       headers: {
-        /* Required for CORS support to work */
         "Access-Control-Allow-Origin": "*",
-        /* Required for cookies, authorization headers with HTTPS */
-        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       },
       statusCode: 200,
       body: "true",
@@ -34,10 +33,9 @@ exports.handler = async function (event, context, callback) {
   } catch (error) {
     callback(null, {
       headers: {
-        /* Required for CORS support to work */
         "Access-Control-Allow-Origin": "*",
-        /* Required for cookies, authorization headers with HTTPS */
-        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       },
       statusCode: 500,
       body: error,
