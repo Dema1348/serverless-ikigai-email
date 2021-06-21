@@ -14,8 +14,12 @@ let headers = {
   "Access-Control-Allow-Credentials": "true",
 };
 
+headers["Access-Control-Allow-Origin"] = "*";
+headers["Vary"] = "Origin";
+
 exports.handler = async function (event, context) {
   console.log(event);
+  console.log(headers);
 
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: "204", headers };
@@ -50,4 +54,8 @@ exports.handler = async function (event, context) {
       };
     }
   }
+  return {
+    statusCode: 401,
+    HEADERS,
+  };
 };
