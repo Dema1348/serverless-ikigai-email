@@ -56,6 +56,6 @@ exports.handler = async function (event, context) {
   }
   return {
     statusCode: 401,
-    HEADERS,
+    headers,
   };
 };
