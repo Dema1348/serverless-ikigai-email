@@ -6,7 +6,7 @@ const { SENDGRID_KEY } = process.env;
 sgMail.setApiKey(SENDGRID_KEY);
 
 exports.handler = async function (event, context, callback) {
-  const { email, comment, phone } = JSON.parse(event.body);
+  const { email, comment, name } = JSON.parse(event.body);
 
   const msg = {
     to: "admin@ikigaisystems.cl",
@@ -15,7 +15,7 @@ exports.handler = async function (event, context, callback) {
     text: "contacto",
     html: `Correo cliente: <strong>${email}</strong><br>
              Comentario: <strong>${comment}</strong><br> 
-             Telefono: <strong>${phone}</strong><br> `,
+             Nombre: <strong>${name}</strong><br> `,
   };
 
   try {
