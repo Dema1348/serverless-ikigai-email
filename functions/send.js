@@ -14,9 +14,9 @@ let headers = {
   "Access-Control-Allow-Credentials": "true",
 };
 
-exports.handler = async function (event, context, callback) {
+exports.handler = async function (event, context) {
   if (event.httpMethod === "OPTIONS") {
-    return callback(nulll, { statusCode: "204", headers });
+    return { statusCode: "204", headers };
   }
 
   if (event.httpMethod === "POST") {
@@ -35,17 +35,17 @@ exports.handler = async function (event, context, callback) {
     try {
       const response = await sgMail.send(msg);
       console.log(response);
-      callback(null, {
+      return {
         headers,
         statusCode: 200,
         body: "true",
-      });
+      };
     } catch (error) {
-      callback(null, {
+      return {
         headers,
         statusCode: 500,
         body: error,
-      });
+      };
     }
   }
 };
