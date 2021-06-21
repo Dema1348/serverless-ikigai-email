@@ -15,6 +15,8 @@ let headers = {
 };
 
 exports.handler = async function (event, context) {
+  console.log(event);
+
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: "204", headers };
   }
