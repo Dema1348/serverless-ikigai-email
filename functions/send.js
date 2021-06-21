@@ -5,40 +5,49 @@ const { SENDGRID_KEY } = process.env;
 
 sgMail.setApiKey(SENDGRID_KEY);
 
-exports.handler = async function (event, context, callback) {
-  const { email, comment, name } = JSON.parse(event.body);
+let headers = {
+  "Access-Control-Allow-Headers":
+    "Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin",
+  "Content-Type": "application/json", //optional
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Max-Age": "8640",
+};
 
-  const msg = {
-    to: "admin@ikigaisystems.cl",
-    from: "contacto@ikigaisystems.cl",
-    subject: `contactar a ${email}`,
-    text: "contacto",
-    html: `Correo cliente: <strong>${email}</strong><br>
+headers["Access-Control-Allow-Origin"] = "*";
+headers["Vary"] = "Origin";
+
+exports.handler = async function (event, context, callback) {
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: "204", headers };
+  }
+
+  if (event.httpMethod === "POST") {
+    const { email, comment, name } = JSON.parse(event.body);
+
+    const msg = {
+      to: "admin@ikigaisystems.cl",
+      from: "contacto@ikigaisystems.cl",
+      subject: `contactar a ${email}`,
+      text: "contacto",
+      html: `Correo cliente: <strong>${email}</strong><br>
              Comentario: <strong>${comment}</strong><br> 
              Nombre: <strong>${name}</strong><br> `,
-  };
+    };
 
-  try {
-    const response = await sgMail.send(msg);
-    console.log(response);
-    callback(null, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      },
-      statusCode: 200,
-      body: "true",
-    });
-  } catch (error) {
-    callback(null, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      },
-      statusCode: 500,
-      body: error,
-    });
+    try {
+      const response = await sgMail.send(msg);
+      console.log(response);
+      callback(null, {
+        headers,
+        statusCode: 200,
+        body: "true",
+      });
+    } catch (error) {
+      callback(null, {
+        headers,
+        statusCode: 500,
+        body: error,
+      });
+    }
   }
 };
