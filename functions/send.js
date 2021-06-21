@@ -16,7 +16,7 @@ let headers = {
 
 exports.handler = async function (event, context, callback) {
   if (event.httpMethod === "OPTIONS") {
-    return { statusCode: "204", headers };
+    return callback(nulll, { statusCode: "204", headers });
   }
 
   if (event.httpMethod === "POST") {
