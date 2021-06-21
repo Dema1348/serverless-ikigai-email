@@ -22,11 +22,23 @@ exports.handler = async function (event, context, callback) {
     const response = await sgMail.send(msg);
     console.log(response);
     callback(null, {
+      headers: {
+        /* Required for CORS support to work */
+        "Access-Control-Allow-Origin": "*",
+        /* Required for cookies, authorization headers with HTTPS */
+        "Access-Control-Allow-Credentials": true,
+      },
       statusCode: 200,
       body: "true",
     });
   } catch (error) {
     callback(null, {
+      headers: {
+        /* Required for CORS support to work */
+        "Access-Control-Allow-Origin": "*",
+        /* Required for cookies, authorization headers with HTTPS */
+        "Access-Control-Allow-Credentials": true,
+      },
       statusCode: 500,
       body: error,
     });
