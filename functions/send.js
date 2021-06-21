@@ -6,15 +6,13 @@ const { SENDGRID_KEY } = process.env;
 sgMail.setApiKey(SENDGRID_KEY);
 
 let headers = {
+  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
-    "Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin",
-  "Content-Type": "application/json", //optional
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Max-Age": "8640",
+    "Origin, X-Requested-With, Content-Type, Accept",
+  "Content-Type": "application/json",
+  "Access-Control-Allow-Methods": "*",
+  "Access-Control-Allow-Credentials": "true",
 };
-
-headers["Access-Control-Allow-Origin"] = "*";
-headers["Vary"] = "Origin";
 
 exports.handler = async function (event, context, callback) {
   if (event.httpMethod === "OPTIONS") {
